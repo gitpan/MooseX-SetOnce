@@ -1,0 +1,25 @@
+{
+   "resources" : {
+      "repository" : "git://git.codesimply.com/MooseX-SetOnce.git"
+   },
+   "generated_by" : "Dist::Zilla version 1.100160",
+   "meta-spec" : {
+      "version" : 1.4,
+      "url" : "http://module-build.sourceforge.net/META-spec-v1.4.html"
+   },
+   "version" : "0.100471",
+   "name" : "MooseX-SetOnce",
+   "author" : [
+      "Ricardo SIGNES <rjbs@cpan.org>"
+   ],
+   "license" : "perl",
+   "requires" : {
+      "Moose::Role" : "0.90",
+      "Test::More" : 0,
+      "Try::Tiny" : 0,
+      "ExtUtils::MakeMaker" : "6.11",
+      "Moose" : 0
+   },
+   "abstract" : "write-once, read-many attributes for Moose"
+}
+

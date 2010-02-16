@@ -1,0 +1,19 @@
+---
+abstract: 'write-once, read-many attributes for Moose'
+author:
+  - 'Ricardo SIGNES <rjbs@cpan.org>'
+generated_by: 'Dist::Zilla version 1.100160'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: MooseX-SetOnce
+requires:
+  ExtUtils::MakeMaker: 6.11
+  Moose: 0
+  Moose::Role: 0.90
+  Test::More: 0
+  Try::Tiny: 0
+resources:
+  repository: git://git.codesimply.com/MooseX-SetOnce.git
+version: 0.100471
