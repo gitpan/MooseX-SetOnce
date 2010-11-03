@@ -1,19 +1,23 @@
 use strict;
 use warnings;
 package MooseX::SetOnce;
-our $VERSION = '0.100471';
+BEGIN {
+  $MooseX::SetOnce::VERSION = '0.100472';
+}
 # ABSTRACT: write-once, read-many attributes for Moose
 
 
 package MooseX::SetOnce::Attribute;
-our $VERSION = '0.100471';
+BEGIN {
+  $MooseX::SetOnce::Attribute::VERSION = '0.100472';
+}
 use Moose::Role 0.90;
 
 before set_value => sub { $_[0]->_ensure_unset($_[1]) };
 
 sub _ensure_unset {
   my ($self, $instance) = @_;
-  Carp::confess("cannot change value of SetOnce attribute")
+  Carp::confess("cannot change value of SetOnce attribute " . $self->name)
     if $self->has_value($instance);
 }
 
@@ -28,7 +32,9 @@ around accessor_metaclass => sub {
 };
 
 package MooseX::SetOnce::Accessor;
-our $VERSION = '0.100471';
+BEGIN {
+  $MooseX::SetOnce::Accessor::VERSION = '0.100472';
+}
 use Moose::Role 0.90;
 
 around _inline_store => sub {
@@ -45,7 +51,9 @@ around _inline_store => sub {
 };
 
 package Moose::Meta::Attribute::Custom::Trait::SetOnce;
-our $VERSION = '0.100471';
+BEGIN {
+  $Moose::Meta::Attribute::Custom::Trait::SetOnce::VERSION = '0.100472';
+}
 sub register_implementation { 'MooseX::SetOnce::Attribute' }
 
 1;
@@ -59,7 +67,7 @@ MooseX::SetOnce - write-once, read-many attributes for Moose
 
 =head1 VERSION
 
-version 0.100471
+version 0.100472
 
 =head1 SYNOPSIS
 
@@ -94,7 +102,7 @@ If the attribute has a clearer, you may clear the attribute and set it again.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -7,6 +7,5 @@ Makefile.PL
 README
 dist.ini
 lib/MooseX/SetOnce.pm
-t/release-pod-coverage.t
 t/release-pod-syntax.t
-t/worm.t
+t/setonce.t
