@@ -2,18 +2,25 @@ use strict;
 use warnings;
 package MooseX::SetOnce;
 BEGIN {
-  $MooseX::SetOnce::VERSION = '0.100472';
+  $MooseX::SetOnce::VERSION = '0.100473';
 }
 # ABSTRACT: write-once, read-many attributes for Moose
 
 
 package MooseX::SetOnce::Attribute;
 BEGIN {
-  $MooseX::SetOnce::Attribute::VERSION = '0.100472';
+  $MooseX::SetOnce::Attribute::VERSION = '0.100473';
 }
 use Moose::Role 0.90;
 
 before set_value => sub { $_[0]->_ensure_unset($_[1]) };
+
+around _inline_set_value => sub {
+    my ( $orig, $self, @args ) = @_;
+    my (@lines) = $self->$orig(@args);
+    unshift @lines, sprintf q{$_[0]->meta->get_attribute("%s")->_ensure_unset($_[0]);}, quotemeta( $self->name );
+    return @lines;
+} if $Moose::VERSION >= 1.9900;
 
 sub _ensure_unset {
   my ($self, $instance) = @_;
@@ -29,11 +36,11 @@ around accessor_metaclass => sub {
     roles => [ 'MooseX::SetOnce::Accessor' ],
     cache => 1
   )->name
-};
+} if $Moose::VERSION < 1.9900;
 
 package MooseX::SetOnce::Accessor;
 BEGIN {
-  $MooseX::SetOnce::Accessor::VERSION = '0.100472';
+  $MooseX::SetOnce::Accessor::VERSION = '0.100473';
 }
 use Moose::Role 0.90;
 
@@ -52,7 +59,7 @@ around _inline_store => sub {
 
 package Moose::Meta::Attribute::Custom::Trait::SetOnce;
 BEGIN {
-  $Moose::Meta::Attribute::Custom::Trait::SetOnce::VERSION = '0.100472';
+  $Moose::Meta::Attribute::Custom::Trait::SetOnce::VERSION = '0.100473';
 }
 sub register_implementation { 'MooseX::SetOnce::Attribute' }
 
@@ -67,7 +74,7 @@ MooseX::SetOnce - write-once, read-many attributes for Moose
 
 =head1 VERSION
 
-version 0.100472
+version 0.100473
 
 =head1 SYNOPSIS
 
@@ -106,7 +113,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Ricardo SIGNES.
+This software is copyright (c) 2011 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
