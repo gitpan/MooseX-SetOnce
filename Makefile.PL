@@ -14,6 +14,7 @@ my %WriteMakefileArgs = (
   'BUILD_REQUIRES' => {
     'Moose' => '0',
     'Test::Fatal' => '0',
+    'Test::Moose' => '0',
     'Test::More' => '0.96'
   },
   'CONFIGURE_REQUIRES' => {
@@ -26,7 +27,7 @@ my %WriteMakefileArgs = (
   'PREREQ_PM' => {
     'Moose::Role' => '0.90'
   },
-  'VERSION' => '0.100473',
+  'VERSION' => '0.200000',
   'test' => {
     'TESTS' => 't/*.t'
   }

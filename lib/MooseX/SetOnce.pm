@@ -2,24 +2,32 @@ use strict;
 use warnings;
 package MooseX::SetOnce;
 BEGIN {
-  $MooseX::SetOnce::VERSION = '0.100473';
+  $MooseX::SetOnce::VERSION = '0.200000';
 }
 # ABSTRACT: write-once, read-many attributes for Moose
 
 
 package MooseX::SetOnce::Attribute;
 BEGIN {
-  $MooseX::SetOnce::Attribute::VERSION = '0.100473';
+  $MooseX::SetOnce::Attribute::VERSION = '0.200000';
 }
 use Moose::Role 0.90;
 
 before set_value => sub { $_[0]->_ensure_unset($_[1]) };
 
 around _inline_set_value => sub {
-    my ( $orig, $self, @args ) = @_;
-    my (@lines) = $self->$orig(@args);
-    unshift @lines, sprintf q{$_[0]->meta->get_attribute("%s")->_ensure_unset($_[0]);}, quotemeta( $self->name );
-    return @lines;
+  my $orig = shift;
+  my $self = shift;
+  my ($instance) = @_;
+
+  my @source = $self->$orig(@_);
+
+  return (
+    'Class::MOP::class_of(' . $instance . ')->get_attribute(',
+      '\'' . quotemeta($self->name) . '\'',
+    ')->_ensure_unset(' . $instance . ');',
+    @source,
+  );
 } if $Moose::VERSION >= 1.9900;
 
 sub _ensure_unset {
@@ -40,7 +48,7 @@ around accessor_metaclass => sub {
 
 package MooseX::SetOnce::Accessor;
 BEGIN {
-  $MooseX::SetOnce::Accessor::VERSION = '0.100473';
+  $MooseX::SetOnce::Accessor::VERSION = '0.200000';
 }
 use Moose::Role 0.90;
 
@@ -59,7 +67,7 @@ around _inline_store => sub {
 
 package Moose::Meta::Attribute::Custom::Trait::SetOnce;
 BEGIN {
-  $Moose::Meta::Attribute::Custom::Trait::SetOnce::VERSION = '0.100473';
+  $Moose::Meta::Attribute::Custom::Trait::SetOnce::VERSION = '0.200000';
 }
 sub register_implementation { 'MooseX::SetOnce::Attribute' }
 
@@ -74,7 +82,7 @@ MooseX::SetOnce - write-once, read-many attributes for Moose
 
 =head1 VERSION
 
-version 0.100473
+version 0.200000
 
 =head1 SYNOPSIS
 
