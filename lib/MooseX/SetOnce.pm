@@ -1,15 +1,15 @@
 use strict;
 use warnings;
 package MooseX::SetOnce;
-BEGIN {
-  $MooseX::SetOnce::VERSION = '0.200000';
+{
+  $MooseX::SetOnce::VERSION = '0.200001';
 }
 # ABSTRACT: write-once, read-many attributes for Moose
 
 
 package MooseX::SetOnce::Attribute;
-BEGIN {
-  $MooseX::SetOnce::Attribute::VERSION = '0.200000';
+{
+  $MooseX::SetOnce::Attribute::VERSION = '0.200001';
 }
 use Moose::Role 0.90;
 
@@ -23,7 +23,7 @@ around _inline_set_value => sub {
   my @source = $self->$orig(@_);
 
   return (
-    'Class::MOP::class_of(' . $instance . ')->get_attribute(',
+    'Class::MOP::class_of(' . $instance . ')->find_attribute_by_name(',
       '\'' . quotemeta($self->name) . '\'',
     ')->_ensure_unset(' . $instance . ');',
     @source,
@@ -47,8 +47,8 @@ around accessor_metaclass => sub {
 } if $Moose::VERSION < 1.9900;
 
 package MooseX::SetOnce::Accessor;
-BEGIN {
-  $MooseX::SetOnce::Accessor::VERSION = '0.200000';
+{
+  $MooseX::SetOnce::Accessor::VERSION = '0.200001';
 }
 use Moose::Role 0.90;
 
@@ -56,7 +56,7 @@ around _inline_store => sub {
   my ($orig, $self, $instance, $value) = @_;
 
   my $code = $self->$orig($instance, $value);
-  $code = sprintf qq[%s->meta->get_attribute("%s")->_ensure_unset(%s);\n%s],
+  $code = sprintf qq[%s->meta->find_attribute_by_name("%s")->_ensure_unset(%s);\n%s],
     $instance,
     quotemeta($self->associated_attribute->name),
     $instance,
@@ -66,8 +66,8 @@ around _inline_store => sub {
 };
 
 package Moose::Meta::Attribute::Custom::Trait::SetOnce;
-BEGIN {
-  $Moose::Meta::Attribute::Custom::Trait::SetOnce::VERSION = '0.200000';
+{
+  $Moose::Meta::Attribute::Custom::Trait::SetOnce::VERSION = '0.200001';
 }
 sub register_implementation { 'MooseX::SetOnce::Attribute' }
 
@@ -82,7 +82,7 @@ MooseX::SetOnce - write-once, read-many attributes for Moose
 
 =head1 VERSION
 
-version 0.200000
+version 0.200001
 
 =head1 SYNOPSIS
 

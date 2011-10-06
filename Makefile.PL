@@ -4,32 +4,34 @@ use warnings;
 
 
 
-use ExtUtils::MakeMaker 6.31;
+use ExtUtils::MakeMaker 6.30;
 
 
 
 my %WriteMakefileArgs = (
-  'ABSTRACT' => 'write-once, read-many attributes for Moose',
-  'AUTHOR' => 'Ricardo SIGNES <rjbs@cpan.org>',
-  'BUILD_REQUIRES' => {
-    'Moose' => '0',
-    'Test::Fatal' => '0',
-    'Test::Moose' => '0',
-    'Test::More' => '0.96'
+  "ABSTRACT" => "write-once, read-many attributes for Moose",
+  "AUTHOR" => "Ricardo SIGNES <rjbs\@cpan.org>",
+  "BUILD_REQUIRES" => {
+    "Moose" => 0,
+    "Test::Fatal" => 0,
+    "Test::Moose" => 0,
+    "Test::More" => "0.96"
   },
-  'CONFIGURE_REQUIRES' => {
-    'ExtUtils::MakeMaker' => '6.31'
+  "CONFIGURE_REQUIRES" => {
+    "ExtUtils::MakeMaker" => "6.30"
   },
-  'DISTNAME' => 'MooseX-SetOnce',
-  'EXE_FILES' => [],
-  'LICENSE' => 'perl',
-  'NAME' => 'MooseX::SetOnce',
-  'PREREQ_PM' => {
-    'Moose::Role' => '0.90'
+  "DISTNAME" => "MooseX-SetOnce",
+  "EXE_FILES" => [],
+  "LICENSE" => "perl",
+  "NAME" => "MooseX::SetOnce",
+  "PREREQ_PM" => {
+    "Moose::Role" => "0.90",
+    "strict" => 0,
+    "warnings" => 0
   },
-  'VERSION' => '0.200000',
-  'test' => {
-    'TESTS' => 't/*.t'
+  "VERSION" => "0.200001",
+  "test" => {
+    "TESTS" => "t/*.t"
   }
 );
 
