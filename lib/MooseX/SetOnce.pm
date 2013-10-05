@@ -2,14 +2,14 @@ use strict;
 use warnings;
 package MooseX::SetOnce;
 {
-  $MooseX::SetOnce::VERSION = '0.200001';
+  $MooseX::SetOnce::VERSION = '0.200002';
 }
 # ABSTRACT: write-once, read-many attributes for Moose
 
 
 package MooseX::SetOnce::Attribute;
 {
-  $MooseX::SetOnce::Attribute::VERSION = '0.200001';
+  $MooseX::SetOnce::Attribute::VERSION = '0.200002';
 }
 use Moose::Role 0.90;
 
@@ -48,7 +48,7 @@ around accessor_metaclass => sub {
 
 package MooseX::SetOnce::Accessor;
 {
-  $MooseX::SetOnce::Accessor::VERSION = '0.200001';
+  $MooseX::SetOnce::Accessor::VERSION = '0.200002';
 }
 use Moose::Role 0.90;
 
@@ -67,13 +67,14 @@ around _inline_store => sub {
 
 package Moose::Meta::Attribute::Custom::Trait::SetOnce;
 {
-  $Moose::Meta::Attribute::Custom::Trait::SetOnce::VERSION = '0.200001';
+  $Moose::Meta::Attribute::Custom::Trait::SetOnce::VERSION = '0.200002';
 }
 sub register_implementation { 'MooseX::SetOnce::Attribute' }
 
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -82,7 +83,7 @@ MooseX::SetOnce - write-once, read-many attributes for Moose
 
 =head1 VERSION
 
-version 0.200001
+version 0.200002
 
 =head1 SYNOPSIS
 
@@ -121,10 +122,9 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Ricardo SIGNES.
+This software is copyright (c) 2013 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
